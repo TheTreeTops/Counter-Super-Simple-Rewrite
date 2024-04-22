@@ -1,27 +1,58 @@
-name: Flutter Action
+name: Flutter Build with Cache
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
+      # Clone the repository
+      - name: Clone repository
+        uses: actions/checkout@v4
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: stable
-        flutter-version: '3.19.5' # A version compatible with Dart 3.3.3
+      # Cache Flutter installation based on channel and version
+      - name: Cache Flutter
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.flutter-action.outputs.CACHE-PATH }}
+          key: ${{ runner.os }}-flutter-${{ steps.flutter-action.outputs.CACHE-KEY }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
 
-    - name: Verify Flutter version
-      run: flutter --version
+      # Set up Flutter with caching
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        id: flutter-action
+        with:
+          channel: stable
 
-    - name: Build Windows
-      run: flutter build windows --release
+      # Cache Dart packages
+      - name: Cache Dart packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
+          key: ${{ runner.os }}-pub-${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
 
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: windows-build
-        path: win/
+      # Print outputs for debugging
+      - name: Print outputs
+        run: |
+          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+          echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+          echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+          echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+          echo PUB-CACHE-PATH=${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
+          echo PUB-CACHE-KEY=${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
+
+      # Build the Windows application
+      - name: Build Windows Application
+        run: flutter build windows --release
+
+      # Upload the build artifact
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-build
+          path: build/windows/runner/Release/
