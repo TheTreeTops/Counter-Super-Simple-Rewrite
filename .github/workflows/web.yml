@@ -1,0 +1,46 @@
+name: Flutter Web Build
+on:
+  push:
+    branches:
+      - main  # Or any other branch that triggers this workflow
+  pull_request:
+    branches:
+      - main  # Or any other branch that triggers this workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Verify Flutter Installation
+        run: flutter doctor
+
+      - name: Build Web Application
+        run: flutter build web  # Build the web application
+
+      - name: Checkout gh-pages Branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages  # Checkout the branch where the web content will be deployed
+          path: gh-pages  # Use a different directory for the branch to avoid conflicts
+
+      - name: Copy Built Web Content to gh-pages
+        run: |
+          rm -rf gh-pages/*  # Clear existing content in the branch
+          cp -r build/web/* gh-pages/  # Copy the newly built web content
+
+      - name: Commit and Push to gh-pages
+        run: |
+          cd gh-pages
+          git add .
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -m "Update web build"
+          git push origin gh-pages
