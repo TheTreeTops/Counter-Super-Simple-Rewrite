@@ -3,19 +3,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # We use Ubuntu for cross-platform builds
-    services:
-      android-emulator:  # Setting up an Android emulator for testing or environment setup
-        image: 'reactivecircus/android-emulator:30.0.26'
-        ports:
-          - 5554:5554
-          - 5555:5555
-        options: >-
-          --publish 5554:5554
-          --publish 5555:5555
-          --privileged
-        volumes:
-          - /dev/kvm:/dev/kvm
+    runs-on: ubuntu-latest  # Linux is generally used for cross-platform Flutter builds
 
     steps:
       - name: Clone Repository
@@ -43,17 +31,10 @@ jobs:
           path: build/windows/x64/runner/Release/
 
       # Android Build Section
-      - name: Set Up Android SDK
-        uses: android-actions/setup-android-sdk@v2  # This sets up the Android SDK
-        with:
-          java-version: '11'
-          package-type: 'platform-tools,build-tools;30.0.3,platforms;android-30'
-
-      - name: Build Android Application
-        run: flutter build apk --release
-
-      - name: Upload Android Build Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-build
-          path: build/app/outputs/flutter-apk/app-release.apk  # Path to the built APK
+      - name: Set Up Android Environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk  # Install Java
+          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O android-sdk.zip
+          unzip android-sdk.zip -d $HOME/android-sdk-linux
+          echo "export ANDROID_SDK_ROOT=$HOME/android-sdk-linux" >> $
