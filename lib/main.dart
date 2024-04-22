@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'counter',
+      title: 'Counter',
       theme: CupertinoThemeData(
         brightness: Brightness.dark, // This line sets the theme to dark mode
         primaryColor: CupertinoColors.white,
