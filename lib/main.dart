@@ -77,21 +77,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('Settings'),
                 actions: <CupertinoActionSheetAction>[
                   CupertinoActionSheetAction(
-                    child: Text('Clear Counter'),
+                    child: Text('Clear Count'),
                     onPressed: () {
                       Navigator.pop(context);
                       _clearCounter();
                     },
                   ),
                   CupertinoActionSheetAction(
-                    child: Text('Save Counter'),
+                    child: Text('Save Count'),
                     onPressed: () {
                       Navigator.pop(context);
                       _saveCounter();
                     },
                   ),
                   CupertinoActionSheetAction(
-                    child: Text('Load Counter'),
+                    child: Text('Load Count'),
                     onPressed: () {
                       Navigator.pop(context);
                       _loadCounter();
