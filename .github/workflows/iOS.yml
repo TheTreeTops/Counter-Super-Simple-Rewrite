@@ -1,4 +1,4 @@
-name: Flutter iOS Build (Fakesign)
+name: Flutter iOS Build (No CocoaPods)
 on:
   push:
   pull_request:
@@ -17,16 +17,6 @@ jobs:
 
       - name: Verify Flutter Installation
         run: flutter doctor
-
-      - name: Check for Podfile
-        run: |
-          if [ ! -f ios/Podfile ]; then
-            echo "No Podfile found. Initializing Podfile..."
-            flutter create .
-          fi
-
-      - name: Install CocoaPods
-        run: pod install --project-directory=ios || true
 
       - name: Build iOS Application (Unsigned IPA)
         run: flutter build ipa --release --no-codesign
