@@ -148,3 +148,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// v1.0.0
