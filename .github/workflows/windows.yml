@@ -4,13 +4,10 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-      # Clone the repository
       - name: Clone repository
         uses: actions/checkout@v4
 
-      # Cache Flutter installation based on channel and version
       - name: Cache Flutter
         uses: actions/cache@v3
         with:
@@ -19,14 +16,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-flutter-
 
-      # Set up Flutter with caching
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         id: flutter-action
         with:
           channel: stable
 
-      # Cache Dart packages
       - name: Cache Dart packages
         uses: actions/cache@v3
         with:
@@ -35,22 +30,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pub-
 
-      # Print outputs for debugging
-      - name: Print outputs
-        run: |
-          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
-          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
-          echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
-          echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
-          echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
-          echo PUB-CACHE-PATH=${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}
-          echo PUB-CACHE-KEY=${{ steps.flutter-action.outputs.PUB-CACHE-KEY }}
+      - name: Verify Flutter Installation
+        run: flutter doctor
 
-      # Build the Windows application
       - name: Build Windows Application
         run: flutter build windows --release
 
-      # Upload the build artifact
+      - name: List Build Directory
+        run: dir build/windows/runner/Release/
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
