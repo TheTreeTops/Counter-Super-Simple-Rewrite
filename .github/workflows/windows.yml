@@ -1,5 +1,6 @@
 name: Flutter Action
 on: [push, pull_request]
+
 jobs:
   build:
     runs-on: windows-latest
@@ -18,3 +19,9 @@ jobs:
 
     - name: Build Windows
       run: flutter build windows --release
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-build
+        path: build/windows/runner/Release/
