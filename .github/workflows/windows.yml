@@ -36,11 +36,13 @@ jobs:
       - name: Build Windows Application
         run: flutter build windows --release
 
+      # Corrected path to build output
       - name: List Build Directory
-        run: dir build/windows/runner/Release/
+        run: dir build/windows/x64/runner/Release/
 
+      # Corrected path for uploading the build artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
           name: windows-build
-          path: build/windows/runner/Release/
+          path: build/windows/x64/runner/Release/
