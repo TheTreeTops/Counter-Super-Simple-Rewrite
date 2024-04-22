@@ -1,4 +1,4 @@
-name: Flutter iOS Build (Export IPA from Archive)
+name: Flutter iOS Build (Using ExportOptions.plist)
 on:
   push:
   pull_request:
@@ -32,7 +32,6 @@ jobs:
       - name: List Build Directory
         run: ls build/ios/ipa/
 
-      # Upload the exported IPA file as an artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
