@@ -1,4 +1,4 @@
-name: Flutter iOS Build (No CocoaPods)
+name: Flutter iOS Build (Export IPA from Archive)
 on:
   push:
   pull_request:
@@ -18,13 +18,21 @@ jobs:
       - name: Verify Flutter Installation
         run: flutter doctor
 
-      - name: Build iOS Application (Unsigned IPA)
+      - name: Build iOS Application (Xcode Archive)
         run: flutter build ipa --release --no-codesign
+
+      - name: Export IPA from Xcode Archive
+        run: |
+          mkdir -p build/ios/ipa/
+          xcodebuild -exportArchive \
+            -archivePath build/ios/archive/Runner.xcarchive \
+            -exportPath build/ios/ipa/ \
+            -exportOptionsPlist ios/Runner/ExportOptions.plist
 
       - name: List Build Directory
         run: ls build/ios/ipa/
 
-      # Upload the unsigned IPA file as an artifact
+      # Upload the exported IPA file as an artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
