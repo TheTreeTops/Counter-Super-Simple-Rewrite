@@ -13,9 +13,6 @@ jobs:
         with:
           channel: stable
 
-      - name: Verify Flutter Installation
-        run: flutter doctor
-
       - name: Build Windows Application
         run: flutter build windows --release
 

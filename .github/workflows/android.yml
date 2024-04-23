@@ -15,9 +15,6 @@ jobs:
         with:
           channel: stable
 
-      - name: Verify Flutter Installation
-        run: flutter doctor
-
       - name: Build Android Application
         run: flutter build apk --release
 
