@@ -18,6 +18,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          
       - name: Flutter Build 
         run: flutter build ios --release --no-codesign
 
