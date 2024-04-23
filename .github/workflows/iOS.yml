@@ -32,7 +32,10 @@ jobs:
 
       - name: Echo version
         run: echo "${{ steps.version.outputs.version }}"
-
+        
+      - name: Install dependencies
+        run: brew install ldid
+        
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.4.1
         with:
