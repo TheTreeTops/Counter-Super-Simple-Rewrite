@@ -14,7 +14,7 @@ jobs:
           channel: stable
 
       - name: Build macOS Application
-        run: flutter build macos --release
+        run: flutter build macos --release --no-codesign
 
       - name: List Build Directory
         run: ls -la build/macos/Build/Products/Release/

@@ -13,6 +13,11 @@ jobs:
         with:
           channel: stable
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build cmake g++
+
       - name: Build Linux Application
         run: flutter build linux --release
 
