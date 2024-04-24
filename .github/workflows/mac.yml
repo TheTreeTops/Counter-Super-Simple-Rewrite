@@ -14,7 +14,13 @@ jobs:
           channel: stable
 
       - name: Build macOS Application
-        run: flutter build macos --release --no-codesign
+        run: flutter build macos --release
+
+      - name: Create DMG
+        run: |
+          APP_PATH="build/macos/Build/Products/Release/Counter.app"
+          DMG_PATH="build/macos/Build/Products/Release/Counter.dmg"
+          hdiutil create -volname "Counter" -srcfolder "$APP_PATH" -ov -format UDZO "$DMG_PATH"
 
       - name: List Build Directory
         run: ls -la build/macos/Build/Products/Release/
