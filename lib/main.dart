@@ -110,43 +110,56 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 200.0),
-            Text(
+      child: Column(
+        children: <Widget>[
+          // Top Spacer
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          // Centered Counter Text
+          Center(
+            child: Text(
               '$_counter',
               style: TextStyle(
-                fontSize: 40.0, 
+                fontSize: 40.0,
                 color: CupertinoColors.white,
               ),
             ),
-            SizedBox(height: 250.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CupertinoButton(
+          ),
+          // Bottom Spacer
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  child: CupertinoButton(
+                    padding: EdgeInsets.all(16.0),
                     child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
                     color: CupertinoColors.destructiveRed,
                     onPressed: _decrementCounter,
                   ),
-                  CupertinoButton(
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: CupertinoButton(
+                    padding: EdgeInsets.all(16.0),
                     child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
                     color: CupertinoColors.activeGreen,
                     onPressed: _incrementCounter,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 20), // Extra space at the bottom
+        ],
       ),
     );
   }
 }
-
-// v1.0.3 - iOS, Linux, and Mac in Alpha (Untested)
