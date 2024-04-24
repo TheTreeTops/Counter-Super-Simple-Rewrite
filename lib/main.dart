@@ -149,4 +149,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// v1.0.2
+// v1.0.2 - iOS Alpha
