@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'Counter',
       theme: CupertinoThemeData(
-        brightness: Brightness.dark, // This line sets the theme to dark mode
+        brightness: Brightness.dark,
         primaryColor: CupertinoColors.white,
       ),
       home: MyHomePage(key: UniqueKey(), title: 'Counter - Super Simple'),
@@ -73,92 +72,95 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             showCupertinoModalPopup(
               context: context,
-              builder: (BuildContext context) => CupertinoActionSheet(
-                title: Text('Settings'),
-                actions: <CupertinoActionSheetAction>[
-                  CupertinoActionSheetAction(
-                    child: Text('Clear Count'),
+              builder: (BuildContext context) {
+                return CupertinoActionSheet(
+                  title: Text('Settings'),
+                  actions: [
+                    CupertinoActionSheetAction(
+                      child: Text('Clear Count'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _clearCounter();
+                      },
+                    ),
+                    CupertinoActionSheetAction(
+                      child: Text('Save Count'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _saveCounter();
+                      },
+                    ),
+                    CupertinoActionSheetAction(
+                      child: Text('Load Count'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _loadCounter();
+                      },
+                    ),
+                  ],
+                  cancelButton: CupertinoActionSheetAction(
+                    child: Text('Cancel'),
                     onPressed: () {
                       Navigator.pop(context);
-                      _clearCounter();
                     },
                   ),
-                  CupertinoActionSheetAction(
-                    child: Text('Save Count'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      _saveCounter();
-                    },
-                  ),
-                  CupertinoActionSheetAction(
-                    child: Text('Load Count'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      _loadCounter();
-                    },
-                  ),
-                ],
-                cancelButton: CupertinoActionSheetAction(
-                  child: Text('Cancel'),
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
+                );
+              },
             );
           },
         ),
       ),
-      child: Column(
-        children: <Widget>[
-          // Top Spacer
-          Expanded(
-            flex: 1,
-            child: Container(),
-          ),
-          // Centered Counter Text
-          Center(
-            child: Text(
-              '$_counter',
-              style: TextStyle(
-                fontSize: 40.0,
-                color: CupertinoColors.white,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start, // Changed to move content down
+          children: [
+            Expanded(
+              flex: 6, // Decreased to move the counter down
+              child: Container(), // Empty space to push content down
+            ),
+            Center(
+              child: Text(
+                '$_counter',
+                style: TextStyle(
+                  fontSize: 40.0,
+                  color: CupertinoColors.white,
+                ),
               ),
             ),
-          ),
-          // Bottom Spacer
-          Expanded(
-            flex: 1,
-            child: Container(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: CupertinoButton(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
-                    color: CupertinoColors.destructiveRed,
-                    onPressed: _decrementCounter,
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: CupertinoButton(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
-                    color: CupertinoColors.activeGreen,
-                    onPressed: _incrementCounter,
-                  ),
-                ),
-              ],
+            Expanded(
+              flex: 6,
+              child: Container(), // Additional space to move the content down
             ),
-          ),
-          SizedBox(height: 20), // Extra space at the bottom
-        ],
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: CupertinoButton(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
+                        color: CupertinoColors.destructiveRed,
+                        onPressed: _decrementCounter,
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: CupertinoButton(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
+                        color: CupertinoColors.activeGreen,
+                        onPressed: _incrementCounter,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
