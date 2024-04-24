@@ -10,20 +10,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'Counter App',
+      title: 'Counter',
       theme: CupertinoThemeData(
-        brightness: Brightness.dark,
-        primaryColor: CupertinoColors.activeBlue,
+        brightness: Brightness.dark, // This line sets the theme to dark mode
+        primaryColor: CupertinoColors.white,
       ),
-      home: MyHomePage(title: 'Counter - Enhanced'),
+      home: MyHomePage(key: UniqueKey(), title: 'Counter - Super Simple'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final String title;
+  MyHomePage({required Key key, required this.title}) : super(key: key);
 
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -31,40 +31,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  bool _isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  Future<void> _incrementCounter() async {
+  void _incrementCounter() {
     setState(() {
       _counter++;
     });
-    await _saveCounter();
   }
 
-  Future<void> _decrementCounter() async {
+  void _decrementCounter() {
     setState(() {
       _counter--;
     });
-    await _saveCounter();
   }
 
-  Future<void> _clearCounter() async {
+  void _clearCounter() {
     setState(() {
       _counter = 0;
     });
-    await _saveCounter();
-  }
-
-  Future<void> _resetCounter() async {
-    setState(() {
-      _counter = 0;
-    });
-    await _saveCounter();
   }
 
   Future<void> _saveCounter() async {
@@ -76,25 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = prefs.getInt('counter') ?? 0;
-      _isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return CupertinoPageScaffold(
-        child: Center(
-          child: CupertinoActivityIndicator(),
-        ),
-      );
-    }
-
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(widget.title),
         trailing: CupertinoButton(
-          child: Icon(CupertinoIcons.gear),
+          child: Icon(CupertinoIcons.gear_alt),
           padding: EdgeInsets.zero,
           onPressed: () {
             showCupertinoModalPopup(
@@ -136,59 +110,54 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-      child: Stack(
-        children: [
-          SafeArea(
-            child: Column(
-              children: [
+      child: Column(
+        children: <Widget>[
+          // Top Spacer
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          // Centered Counter Text
+          Center(
+            child: Text(
+              '$_counter',
+              style: TextStyle(
+                fontSize: 40.0,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
+          // Bottom Spacer
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
                 Expanded(
-                  child: Center(
-                    child: Text(
-                      '$_counter',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        color: CupertinoColors.white,
-                      ),
-                    ),
+                  child: CupertinoButton(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
+                    color: CupertinoColors.destructiveRed,
+                    onPressed: _decrementCounter,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CupertinoButton(
-                        child: Text(
-                          '-1',
-                          style: TextStyle(color: CupertinoColors.white),
-                        ),
-                        color: CupertinoColors.destructiveRed,
-                        onPressed: _decrementCounter,
-                      ),
-                      CupertinoButton(
-                        child: Text(
-                          '+1',
-                          style: TextStyle(color: CupertinoColors.white),
-                        ),
-                        color: CupertinoColors.activeGreen,
-                        onPressed: _incrementCounter,
-                      ),
-                    ],
+                SizedBox(width: 20),
+                Expanded(
+                  child: CupertinoButton(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
+                    color: CupertinoColors.activeGreen,
+                    onPressed: _incrementCounter,
                   ),
                 ),
-                SizedBox(height: 20),
               ],
             ),
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: CupertinoButton(
-              child: Icon(CupertinoIcons.refresh, color: CupertinoColors.white),
-              color: CupertinoColors.systemOrange,
-              onPressed: _resetCounter,
-            ),
-          ),
+          SizedBox(height: 20), // Extra space at the bottom
         ],
       ),
     );

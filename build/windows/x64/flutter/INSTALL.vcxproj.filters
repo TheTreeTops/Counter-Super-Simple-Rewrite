@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Stephen\Documents\GitHub\Counter-Super-Simple-Rewrite\build\windows\x64\CMakeFiles\581a5372da6b6d79b8a4dfa2499e1786\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{EA59AA85-CFC4-3869-932B-C7F32C538A80}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+^C:\USERS\STEPHEN\DOCUMENTS\GITHUB\COUNTER-SUPER-SIMPLE-REWRITE\BUILD\WINDOWS\X64\CMAKEFILES\EC46914DB0E2BCD0670CAAF0057E5795\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
