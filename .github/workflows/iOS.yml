@@ -1,4 +1,4 @@
-name: Stable Counter build
+name: iOS Build
 on: [push, pull_request]
 
 jobs:
