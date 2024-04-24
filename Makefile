@@ -19,6 +19,7 @@ fakesign:
 	ldid -SAltWidget/Resources/ReleaseEntitlements.plist archive.xcarchive/Products/Applications/SideStore.app/PlugIns/AltWidgetExtension.appex/AltWidgetExtension
 
 ipa:
-	cp -R /Users/runner/work/Counter-Super-Simple-Rewrite/Counter-Super-Simple-Rewrite/build/ios/iphoneos/Runner.app
-	zip -r SideStore.ipa Payload
+    mkdir -p Payload
+    cp -R /Users/runner/work/Counter-Super-Simple-Rewrite/Counter-Super-Simple-Rewrite/build/ios/iphoneos/Runner.app Payload/
+    zip -r SideStore.ipa Payload
 
