@@ -1,0 +1,26 @@
+name: macOS Build
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Build macOS Application
+        run: flutter build macos --release
+
+      - name: List Build Directory
+        run: ls -la build/macos/Build/Products/Release/
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-build
+          path: build/macos/Build/Products/Release/
