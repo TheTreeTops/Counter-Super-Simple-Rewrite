@@ -12,6 +12,10 @@ default: help
 # A category can be added with @category
 ## -- Building --
 
+# And add help text after each target name starting with '\#\#'
+# A category can be added with @category
+## -- Building --
+
 fakesign:
     rm -rf archive.xcarchive/Products/Applications/SideStore.app/Frameworks/AltStoreCore.framework/Frameworks/
     ldid -SAltStore/Resources/ReleaseEntitlements.plist archive.xcarchive/Products/Applications/SideStore.app/SideStore
