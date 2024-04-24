@@ -12,14 +12,12 @@ default: help
 # A category can be added with @category
 ## -- Building --
 
-
 fakesign:
-	rm -rf archive.xcarchive/Products/Applications/SideStore.app/Frameworks/AltStoreCore.framework/Frameworks/
-	ldid -SAltStore/Resources/ReleaseEntitlements.plist archive.xcarchive/Products/Applications/SideStore.app/SideStore
-	ldid -SAltWidget/Resources/ReleaseEntitlements.plist archive.xcarchive/Products/Applications/SideStore.app/PlugIns/AltWidgetExtension.appex/AltWidgetExtension
+    rm -rf archive.xcarchive/Products/Applications/SideStore.app/Frameworks/AltStoreCore.framework/Frameworks/
+    ldid -SAltStore/Resources/ReleaseEntitlements.plist archive.xcarchive/Products/Applications/SideStore.app/SideStore
+    ldid -SAltWidget/Resources/ReleaseEntitlements.plist archive.xcarchive/Products/Applications/SideStore.app/PlugIns/AltWidgetExtension.appex/AltWidgetExtension
 
 ipa:
     mkdir -p Payload
     cp -R /Users/runner/work/Counter-Super-Simple-Rewrite/Counter-Super-Simple-Rewrite/build/ios/iphoneos/Runner.app Payload/
     zip -r SideStore.ipa Payload
-
