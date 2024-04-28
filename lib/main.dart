@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: CupertinoButton(
-                        padding: EdgeInsets.all(16.0),
+                        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 16.0), // Increase vertical padding
                         child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
                         color: CupertinoColors.destructiveRed,
                         onPressed: _decrementCounter,
@@ -149,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 20),
                     Expanded(
                       child: CupertinoButton(
-                        padding: EdgeInsets.all(16.0),
+                        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 16.0), // Increase vertical padding
                         child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
                         color: CupertinoColors.activeGreen,
                         onPressed: _incrementCounter,
