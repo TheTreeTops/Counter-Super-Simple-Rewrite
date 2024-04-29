@@ -139,20 +139,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
-                      child: CupertinoButton(
-                        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 16.0), // Increase vertical padding
-                        child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
-                        color: CupertinoColors.destructiveRed,
-                        onPressed: _decrementCounter,
+                      child: Container(
+                        height: 200.0, // Set the height of the button
+                        child: CupertinoButton(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0), // Remove vertical padding
+                          child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
+                          color: CupertinoColors.destructiveRed,
+                          onPressed: _decrementCounter,
+                        ),
                       ),
                     ),
                     SizedBox(width: 20),
                     Expanded(
-                      child: CupertinoButton(
-                        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 16.0), // Increase vertical padding
-                        child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
-                        color: CupertinoColors.activeGreen,
-                        onPressed: _incrementCounter,
+                      child: Container(
+                        height: 200.0, // Set the height of the button
+                        child: CupertinoButton(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0), // Remove vertical padding
+                          child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
+                          color: CupertinoColors.activeGreen,
+                          onPressed: _incrementCounter,
+                        ),
                       ),
                     ),
                   ],
