@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        height: 200.0, // Set the height of the button
+                        height: 300.0, // Set the height of the button
                         child: CupertinoButton(
                           padding: EdgeInsets.symmetric(horizontal: 16.0), // Remove vertical padding
                           child: Text('-1', style: TextStyle(color: CupertinoColors.white)),
@@ -152,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 20),
                     Expanded(
                       child: Container(
-                        height: 200.0, // Set the height of the button
+                        height: 300.0, // Set the height of the button
                         child: CupertinoButton(
                           padding: EdgeInsets.symmetric(horizontal: 16.0), // Remove vertical padding
                           child: Text('+1', style: TextStyle(color: CupertinoColors.white)),
